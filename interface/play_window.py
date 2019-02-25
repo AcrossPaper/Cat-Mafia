@@ -3,8 +3,9 @@
 Самое сложное окно всей программы. Здесь происходит вся игра.
 
 """
+from collections import OrderedDict
 from interface import settings
-from PyQt5.QtWidgets import QWidget, QApplication, QDesktopWidget, QVBoxLayout, QHBoxLayout, QFrame, QLabel, QPushButton
+from PyQt5.QtWidgets import QWidget, QApplication, QDesktopWidget, QVBoxLayout, QHBoxLayout, QFrame, QLabel, QPushButton, QListWidget
 from PyQt5.QtCore import QTimer
 
 class Play_Window(QWidget):
@@ -18,15 +19,15 @@ class Play_Window(QWidget):
                  Ограничивает время игроков и делает еще массу полезных штук                               
                                                 
                                                 """
-        self.clock_timer = QTimer()
-
-
-
-
+        self.player_list = QListWidget()
+        self.master_choose = OrderedDict([(QPushButton("Следующий игрок"),"next_player"), (QPushButton("Прудыдущий игрок"),"prev_player")])
+        self.player_control = OrderedDict([(QPushButton("Заголосован"), "voted"), (QPushButton("Отстрелян"), "shooted"), (QPushButton("Удален"), "deleted"), (QPushButton("Вернуть игрока"), "return")])
+        self.master_role = OrderedDict([(QPushButton("Начначить гражданина"), "citizen"), (QPushButton("Начначить мафиози"), "mafia"), (QPushButton("Начначить шерифа"), "sherif"), (QPushButton("Начначить дона"), "don")])
+        self.settings = OrderedDict( [(QPushButton("Скрыть цвета"), "hide"), (QPushButton("Включить голос на острел мафии"), "vote_voice"), (QPushButton("Включить остальные игровые звуки"), "sound")] )
 
 
         #Настроим их
-        self.customise()
+        self.customise2()
 
 
 
@@ -50,6 +51,9 @@ class Play_Window(QWidget):
         top_frame = QFrame()
         top_layout = QVBoxLayout(top_frame)
 
+        #Добавляем к main_layout
+        main_layout.addWidget(top_frame)
+
         """
         * * * * * * * * * * * * * * *
         *      * Mast *             *
@@ -64,98 +68,107 @@ class Play_Window(QWidget):
         
         """
 
-        left_part_frame = QFrame()
-        left_part_layout = QHBoxLayout(left_part_frame)
+        top_left_part_frame = QFrame()
+        top_left_part_layout = QHBoxLayout(top_left_part_frame)
+
+        #Добавляем к top_layout
+        top_layout.addWidget(top_left_part_frame)   #Левая часть
+
 
         #Эти два фрейма добавим в left_part_frame. Сверху вниз.
         player_AND_master_choose_frame = QFrame()
         player_AND_master_choose_layout = QVBoxLayout(player_AND_master_choose_frame)
 
-        players_control_WITH_master_role_AND_settings_frame = QFrame()
-        players_control_WITH_master_role_AND_settings_layout = QVBoxLayout(player_AND_master_choose_frame)
+        top_left_part_layout.addWidget(player_AND_master_choose_frame)  #В player_AND_master_choose_frame вставляем виджеты с списком игроков и их выбором [1]
 
         players_frame = QFrame()
         players_layout = QHBoxLayout(players_frame)
+        #И вставим фрейм c игроками в [1]
+        player_AND_master_choose_layout.addWidget(players_frame)
 
-        players_control_frame = QFrame()
-        players_control_layout = QHBoxLayout(players_control_frame)
+        master_choose_frame = QFrame()
+        master_choose_layout = QHBoxLayout(master_choose_frame)
+        #И вставим фрейми с присвоением игрока в [1]
+        player_AND_master_choose_layout.addWidget(master_choose_frame)
 
-        #К слою что выше еще сделаем деление для выбора ролей и настроек
+
+
+        #Теперь разберемся с управлением игроком и еще одним горизонтальным слоем (MASTER ROLE и Settings)
+        player_control_with_master_role_and_setting_frame = QFrame()
+        player_control_with_master_role_and_setting_layout = QVBoxLayout(player_control_with_master_role_and_setting_frame)
+
+        #Вставляем в него фрейм с контролем игроков
+        player_control_frame = QFrame()
+        player_control_layout = QHBoxLayout(player_control_frame)
+
+        player_control_with_master_role_and_setting_layout.addWidget(player_control_frame)
+
+        #И вставим в него слой с фреймами выбора ролей и настроек
+        master_role_and_setting_frame = QFrame()
+        master_role_and_setting_layout = QHBoxLayout(master_role_and_setting_frame)
+
+        #Но перед вставкой добавим в вставляемый слой еще фреймы
         master_role_frame = QFrame()
         master_role_layout = QHBoxLayout(master_role_frame)
+        settings_frame = QFrame()
+        settings_layout = QHBoxLayout(settings_frame)
 
-        master_settings_frame = QFrame()
-        master_settings_layout = QHBoxLayout(master_settings_frame)
+        master_role_and_setting_layout.addWidget(master_role_frame)
+        master_role_and_setting_layout.addWidget(settings_frame)
 
-        master_role_AND_setting_frame = QFrame()
-        master_role_AND_setting_layout = QHBoxLayout()
-
-
-        #Здесь ничего делить не надо, все тривиально
-        right_part_frame = QFrame()
-        right_part_layout = QHBoxLayout(right_part_frame)
+        #И наконец вставим разбитый еще на 2 слой
+        top_left_part_layout.addWidget(player_control_with_master_role_and_setting_frame)
 
 
-        vote_frame = QFrame()
-        vote_layout = QHBoxLayout(vote_frame)
+        #Теперь вставим виджеы в верхнюю левую часть окна
+        players_layout.addWidget(self.player_list)
 
-        hint_frame = QFrame()
-        hint_layout = QHBoxLayout(hint_frame)
+        for btn in self.master_choose:
+            master_choose_layout.addWidget(btn)
 
+        for btn in self.player_control:
+            player_control_layout.addWidget(btn)    #Не работает
 
-        #Соберем всю верхние фреймы
-        left_part_layout.addWidget(player_AND_master_choose_frame)   #Игроки выбор игрока мастером
-        left_part_layout.addWidget(players_control_WITH_master_role_AND_settings_frame)  #Котроль над игроками, присваивание роли и настройки
+    def customise2(self):
+        # Настроим разрешение и положение окна
+        self.resize(settings.PLAY_WINDOW_WIDTH, settings.PLAY_WINDOW_HEIGHT)
+        self.move_to_center()
 
+        #Начнем с левой части окна, виджеты будем вставлять по часовой стрелке рекурсионно(от малого к большему)
+        player_control_frame = QFrame(self)
+        player_control = QVBoxLayout(player_control_frame)
 
-        right_part_layout.addWidget(vote_frame)
-        right_part_layout.addWidget(hint_frame)
+        player_control.addWidget(self.player_list)
 
+        for btn in self.player_control:
+            player_control.addWidget(btn)
 
+        #Делаем слой выше, чтобы вставить в него то что уже имеем выше плюс что-то новое
+        first_top_frame = QFrame(self)
+        first_top = QHBoxLayout(first_top_frame)
+        self.setLayout(first_top)
 
+        #Вставляем что получили выше
+        first_top.addWidget(player_control_frame)
 
+        #Теперь разметим новое место для следующих виджетов
+        role_control_frame = QFrame(self)
+        role_control = QVBoxLayout(role_control_frame)
 
+        for btn in self.master_choose:
+            role_control.addWidget(btn)
 
-        """
-        
-        Расстановка нижней части окна
-        
-        """
-        bottom_frame = QFrame()
-        botom_layout = QVBoxLayout(bottom_frame)
-
-
-        """Собираем верхнюю часть слоев"""
-        top_layout.addWidget(left_part_frame)
-        top_layout.addWidget(right_part_frame)
-
-        left_part_layout.addWidget(player_AND_master_choose_frame)  #Еще один уровень деления
-
-        player_AND_master_choose_layout.addWidget(players_frame)
-        player_AND_master_choose_layout.addWidget(players_control_frame)
-        #Добавили игроков и окно выбора игрока мастером
-
-
-        left_part_layout.addWidget(players_control_WITH_master_role_AND_settings_frame) #Здесь еще один уровень деления
-
-        players_control_WITH_master_role_AND_settings_layout.addWidget(players_control_frame)
-        players_control_WITH_master_role_AND_settings_layout.addWidget(master_role_AND_setting_frame)#И еще один уровень деления
-
-        master_role_AND_setting_layout.addWidget(master_role_frame)
-        master_role_AND_setting_layout.addWidget(master_settings_frame)
-        #Добавили Контроль над игроками И назначение ролей с настрйоками
+        #И вставляем что-то новое
+        first_top.addWidget(role_control_frame)
 
 
 
 
-        """Собираем нижнюю часть слоев"""
 
 
-        main_layout.addWidget(top_frame)
-        main_layout.addWidget(bottom_frame)
 
-        # И теперь показываем все собранное на экран
-        main_layout.addWidget(left_part_frame)
+
+
         
 
     def sayHello(self):
