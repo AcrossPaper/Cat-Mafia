@@ -6,13 +6,29 @@ from PyQt5.QtWidgets import QWidget
 class Play_Window(QWidget):
         def __init__(self):
             super().__init__()
-            uic.loadUi('play_window.ui', self)
+            #Выводим форму на весь экран
+            uic.loadUi('interface//play_window.ui', self)
+            #При загрузке окно автоматически открывается, скрою его
+            self.hide()
+
+        #Здесь я не стал вручную компоновать виджеты, а сделал через Designer. Так что здесь просто настрою слоты и сигналы
+        def customise(self):
+            pass
+
+        def form_player_string(self):
+            #Метод отвечает за формирование строки с информацией о игроках в таблице с игроками
+            pass
+            #for player in
+
+
 
 if __name__ == "__main__":
-    import sys
-    from PyQt5.QtWidgets import QApplication
+    #import sys
+    pass
+    #from PyQt5.QtWidgets import QApplication
 
-    app = QApplication(sys.argv)
-    window = Play_Window()
-    window.show()
-    sys.exit(app.exec_())
+    #app = QApplication(sys.argv)
+    #window = Play_Window()
+    #window.show()
+    #sys.exit(app.exec_())
+

@@ -9,6 +9,9 @@ class Player:
         self.nick_name = nick_name
         self.role = None
 
+        self.condition = "In game"  #Состояние игрока во время игры.
+        self.fallcount = 0  #Количество фолов у игрока
+
 
     def set_role_mafia(self):
         self.role = "mafia"
@@ -21,3 +24,22 @@ class Player:
 
     def set_role_don(self):
         self.role = "don"
+
+    def shoot_player(self):
+        self.condition = "Shooted"
+
+    def vote_player(self):
+        self.condition = "Voted"
+
+    def disc_player(self):
+        self.condition = "disqualification"
+
+    def drop_condition(self):
+        #Сбросить роль игрока до роли в игре
+        self.condition = "In game"
+
+    def add_fall(self):
+        self.fallcount += 1
+
+    def delete_fall(self):
+        self.fallcount -= 1

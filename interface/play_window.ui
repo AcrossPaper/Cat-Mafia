@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1515</width>
-    <height>813</height>
+    <height>870</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,6 +22,32 @@
   <layout class="QHBoxLayout" name="horizontalLayout_5">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QPushButton" name="btn_startgame">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Начать игру</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_pausegame">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Приостановить игру</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QLabel" name="label_7">
        <property name="sizePolicy">
@@ -39,7 +65,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Список игроков</string>
+        <string>Регистрация игровых событий</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -47,19 +73,25 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_19">
+      <widget class="QPushButton" name="btn_addvote">
        <property name="text">
         <string>Добавить игрока на следующее голосование</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QListWidget" name="listWidget">
+      <widget class="QListWidget" name="list_players">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>265</height>
+        </size>
        </property>
        <item>
         <property name="text">
@@ -114,23 +146,47 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QLabel" name="label_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Варианты вывода игрока из игры</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_shoot">
        <property name="text">
         <string>ОТСТРЕЛЯН</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="btn_disc">
        <property name="text">
-        <string>ЗАГОЛОСОВАН</string>
+        <string>ПОДНЯТ</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="btn_voted">
        <property name="text">
-        <string>ПОДНЯТ</string>
+        <string>ЗАГОЛОСОВАН</string>
        </property>
       </widget>
      </item>
@@ -151,7 +207,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Голосование</string>
+        <string>Блок голосований</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -159,7 +215,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QTableWidget" name="tableWidget">
+      <widget class="QTableWidget" name="table_vote">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -169,14 +225,21 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_20">
+      <widget class="QPushButton" name="btn_fixatevote">
+       <property name="text">
+        <string>Зафиксировать таблицу голосований</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_returnvote">
        <property name="text">
         <string>Отозвать игрока</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="btn_backplayer">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -189,7 +252,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_21">
+      <widget class="QPushButton" name="btn_addfall">
        <property name="text">
         <string>Снять игроку Фолл</string>
        </property>
@@ -220,14 +283,14 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_5">
+        <widget class="QPushButton" name="btn_nextplayer">
          <property name="text">
           <string>Следующий игрок</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_6">
+        <widget class="QPushButton" name="btn_prevplayer">
          <property name="text">
           <string>Предыдущий игрок</string>
          </property>
@@ -238,14 +301,14 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
-            <widget class="QPushButton" name="pushButton_7">
+            <widget class="QPushButton" name="btn_sherif">
              <property name="text">
               <string>Шериф</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_8">
+            <widget class="QPushButton" name="btn_don">
              <property name="text">
               <string>Дон</string>
              </property>
@@ -256,14 +319,14 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
-            <widget class="QPushButton" name="pushButton_9">
+            <widget class="QPushButton" name="btn_red">
              <property name="text">
               <string>Красный</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_10">
+            <widget class="QPushButton" name="btn_black">
              <property name="text">
               <string>Мафия</string>
              </property>
@@ -294,7 +357,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox">
+          <widget class="QCheckBox" name="chb_rolecolor">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -307,14 +370,26 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_2">
+          <widget class="QCheckBox" name="chkbox_voice">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="text">
             <string>Голос ночью</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_3">
+          <widget class="QCheckBox" name="chbox_sounds">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="text">
             <string>Игровые звуки</string>
            </property>
@@ -342,7 +417,7 @@
           <layout class="QVBoxLayout" name="verticalLayout_10"/>
          </item>
          <item>
-          <widget class="QTextEdit" name="textEdit_2">
+          <widget class="QTextEdit" name="text_gamehints">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -364,7 +439,7 @@
              <item>
               <layout class="QVBoxLayout" name="verticalLayout">
                <item>
-                <widget class="QLCDNumber" name="lcdNumber">
+                <widget class="QLCDNumber" name="lcd_time">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                    <horstretch>0</horstretch>
@@ -377,7 +452,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="label_2">
+                <widget class="QLabel" name="lbl_curplayer">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -409,7 +484,7 @@
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_8">
                <item>
-                <widget class="QPushButton" name="pushButton_14">
+                <widget class="QPushButton" name="btn_nexttalk">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -441,7 +516,7 @@
                 </spacer>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_15">
+                <widget class="QPushButton" name="btn_addtime">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
                    <horstretch>0</horstretch>
@@ -454,7 +529,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_18">
+                <widget class="QPushButton" name="btn_addfall_2">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                    <horstretch>0</horstretch>
@@ -473,7 +548,7 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_9">
              <item>
-              <widget class="QPushButton" name="pushButton_16">
+              <widget class="QPushButton" name="btn_citysleep">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -486,7 +561,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_17">
+              <widget class="QPushButton" name="btn_cityawake">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -529,7 +604,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextEdit" name="textEdit">
+      <widget class="QTextEdit" name="text_history">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -541,6 +616,20 @@
          <width>50</width>
          <height>50</height>
         </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_redwin">
+       <property name="text">
+        <string>Победа мирного города</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_blackwin">
+       <property name="text">
+        <string>Победа мафии</string>
        </property>
       </widget>
      </item>

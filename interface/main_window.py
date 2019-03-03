@@ -3,20 +3,25 @@ from PyQt5.QtWidgets import QApplication, QWidget
 
 from interface import start_window as _start_window
 from interface import work_window as _work_window
+from interface import play_window as _play_window
 
-#Класс Main_Window инициализирует и управляет всеми созданными окнами для работы приложения.
+#Класс Main_Window инициализирует и управляет всеми созданными окнами для работы приложения. Работает со слотами и сигналами
 class Main_Window:
     def __init__(self, master):
         self.master = master
 
         self.start_window = _start_window.Start_Window()
         self.work_window = _work_window.Work_Window()
+        self.play_window = _play_window.Play_Window()
 
         #Настроим сигналы стартового окна
         self.setup_start_window_signals()
 
         #Настроим сигналы рабочего окна настроек
         self.setup_work_window_signals()
+
+        #Настроим сигналы игрового окна
+
 
     def setup_start_window_signals(self):
         """
@@ -56,10 +61,20 @@ class Main_Window:
         self.work_window.btn_shake.clicked.connect(self.btn_press_shake)
 
         #Кнопка начать игру
-        pass
+        self.work_window.btn_start_game.clicked.connect(self.btn_press_start)
 
         #Кнопка переместить игрока
         self.work_window.btn_swap_player.clicked.connect(self.btn_press_swap)
+
+    def setup_play_window_signals(self):
+        """
+        Настраивает работу виджетов playwindow
+
+
+
+        """
+
+        """Дальше идет описание слотов(функций при срабатывании сигнала нажатия на кнопку)"""
 
     def btn_press_add_player_room(self):    #Если нажата кнопка добавить игрока (слева)
         #Получим введеный ник
@@ -213,6 +228,11 @@ class Main_Window:
 
         # Установим игрокам их номера
         self.set_pos_game_room()
+
+    def btn_press_start(self):
+        #Кнопка начать игру в WorkWindow
+        self.play_window.show() #Покажем форму игры
+        self.work_window.hide() #И спрячем форму настроек
 
     def diff(self, first, second):  #Разница списков с сохранением порядка
         second = set(second)

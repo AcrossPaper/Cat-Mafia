@@ -16,7 +16,7 @@ mst = master.Master("Бумажный")
 
 #Покажем начальное окно и уйдем в обработчик событий
 app = QApplication(sys.argv)
-#Передадим в интерфейс ссылку на мастера
+#Передадим в интерфейс ссылку на мастера, обработчка событией игры, обработчика истории игры
 interface = main_window.Main_Window(mst)
 interface.start_window.show()
 sys.exit(app.exec_())
