@@ -18,3 +18,6 @@ class GameRoom:
     #Метод перемешиваем всех игроков по их позиции за игровым столом.
     def shake_players(self):
         shuffle(self.players)
+
+    def get_players(self):
+        return self.players

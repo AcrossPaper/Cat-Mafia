@@ -9,9 +9,9 @@ from PyQt5.QtWidgets import QApplication
 import master
 from interface import main_window
 
+
 #Создадим мастера
 mst = master.Master("Бумажный")
-
 
 
 #Покажем начальное окно и уйдем в обработчик событий

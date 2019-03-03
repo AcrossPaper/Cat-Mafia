@@ -21,3 +21,4 @@ class WaitRoom:
     def delete_player(self, row):
         self.players.pop(row)
 
+

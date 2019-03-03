@@ -8,18 +8,18 @@ class Play_Window(QWidget):
             super().__init__()
             #Выводим форму на весь экран
             uic.loadUi('interface//play_window.ui', self)
+            self.customise()
             #При загрузке окно автоматически открывается, скрою его
             self.hide()
 
-        #Здесь я не стал вручную компоновать виджеты, а сделал через Designer. Так что здесь просто настрою слоты и сигналы
+        #Здесь я не стал вручную компоновать виджеты, а сделал через Designer. Так что здесь просто проведу немного космитичеких улучшений
         def customise(self):
-            pass
+            self.table_vote.setRowCount(10)
+            self.table_vote.setColumnCount(2)
 
         def form_player_string(self):
             #Метод отвечает за формирование строки с информацией о игроках в таблице с игроками
             pass
-            #for player in
-
 
 
 if __name__ == "__main__":

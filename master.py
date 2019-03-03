@@ -11,13 +11,22 @@ from PyQt5.QtWidgets import QApplication
 from player import Player
 
 from wait_room import WaitRoom
-from game_room import GameRoom
+from game_room import GameRoom      #Эти модули отвечают за логику внутри комнат
+from play_room import PlayRoom
+
+import game_event
+import game_history
 
 
 
 class Master:
     def __init__(self, nickname):
         self.master_player = Player(nickname)
+        self.date = None
+
+        #Создадим объекты внутри мастера, отвечающие за игровые события и историю
+        self.event = game_event.GameEvent()
+        self.history = game_history.History()
 
         #Мастер создает игровую комнату ожидания
         self.wait_room = WaitRoom()
@@ -25,7 +34,8 @@ class Master:
         #Мастер создает игровую комнату набора игроков в игру
         self.game_room = GameRoom()
 
-        self.date = None
+        #И игровая комната
+        self.play_room = PlayRoom()
 
     #Мастер добавляет новопришедших игроков на вечер
     def add_player_to_wait_room(self, nick_name):
@@ -49,6 +59,11 @@ class Master:
 
     def shake_player_at_game_room(self):
         self.game_room.shake_players()
+
+    def set_player_playroom(self):
+        #Метод получает всех игроков из настройки игры GameRoom в PlayRoom
+        players = self.game_room.get_players()
+        self.play_room.set_players(players)
 
 
 

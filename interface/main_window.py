@@ -21,6 +21,7 @@ class Main_Window:
         self.setup_work_window_signals()
 
         #Настроим сигналы игрового окна
+        self.setup_play_window_signals()
 
 
     def setup_start_window_signals(self):
@@ -70,9 +71,9 @@ class Main_Window:
         """
         Настраивает работу виджетов playwindow
 
-
-
         """
+
+        pass
 
         """Дальше идет описание слотов(функций при срабатывании сигнала нажатия на кнопку)"""
 
@@ -231,8 +232,38 @@ class Main_Window:
 
     def btn_press_start(self):
         #Кнопка начать игру в WorkWindow
+
+        #Передадим всех игроков в PlayWindow через мастера
+        self.master.set_player_playroom()
+
+        #Очистим виджет от мусора
+        self.play_window.list_players.clear()
+        #Выведем на виджет с игроками полученных игроков
+        player_number = 1
+        for player in self.master.game_room.get_players():  #game_room берем из него, так как в нем сидят игроки на следующую игру
+            self.play_window.list_players.addItem("{}. {}".format(player_number, player.nick_name))
+            player_number += 1
+
         self.play_window.show() #Покажем форму игры
         self.work_window.hide() #И спрячем форму настроек
+
+
+
+
+        """СЛОТЫ PLAYROOM"""
+    #btn_add_vote
+    def player_add_vote(self, player):
+        #Когда игрок добовляет на свой речи кого-то на голосование
+        self.master.play_room.add_vote(player) #Теперь игрок в памяти
+
+        #Добавляем игрока на виджет из памяти мастера
+
+
+
+
+
+
+
 
     def diff(self, first, second):  #Разница списков с сохранением порядка
         second = set(second)
