@@ -49,5 +49,3 @@ class PlayRoom:
 
     def set_players(self, players):
         self.players = players.copy()   #Чтобы потом вернуть игроков обратно в окно к настройкам
-
-

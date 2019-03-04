@@ -5,6 +5,8 @@ from interface import start_window as _start_window
 from interface import work_window as _work_window
 from interface import play_window as _play_window
 
+import player
+
 from PyQt5 import QtGui
 
 
@@ -76,6 +78,9 @@ class Main_Window:
         Настраивает работу виджетов playwindow
 
         """
+
+        "Кнопка добавить игрока на голосование"
+        self.play_window.btn_addvote.clicked.connect(self.player_add_vote)
 
         pass
 
@@ -261,11 +266,31 @@ class Main_Window:
 
         """СЛОТЫ PLAYROOM"""
     #btn_add_vote
-    def player_add_vote(self, player):
-        #Когда игрок добовляет на свой речи кого-то на голосование
-        self.master.play_room.add_vote(player) #Теперь игрок в памяти
+    def player_add_vote(self):  #Параметр для метода берется из выделенного игрока таблицы с игроками
+        # Узнаем номер выделенного игрока из таблицы с игроками
+        selectedPlayer = self.play_window.table_players.selectedIndexes()
+        playerNumber = selectedPlayer[0].row()
 
-        #Добавляем игрока на виджет из памяти мастера
+        #Ищем игрока в памяти добавленных игроков по его никнейму в памяти мастера
+        findNick = selectedPlayer[0].data()
+        foundPlayer = None
+
+        for player in self.master.play_room.players:
+            if player.nick_name == findNick:
+                foundPlayer = player
+
+        #Теперь добавляем в память игроков на голосование ссылку на игрока что был выставлен
+        self.master.play_room.add_vote(foundPlayer)
+
+        #Добавляем игрока на виджет таблицы голосования из памяти мастера
+        rowCount = self.play_window.table_vote.rowCount()
+        self.play_window.table_vote.insertRow(rowCount) #Вставляем новую строку в таблице
+
+        #Формируем строку которую вставим в таблицу
+        stringAtTable = "{}.{}".format(playerNumber + 1, foundPlayer.nick_name)
+        self.play_window.table_vote.setItem(rowCount, 0, QTableWidgetItem(stringAtTable))
+
+
 
 
 

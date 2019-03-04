@@ -36,10 +36,6 @@ class Play_Window(QWidget):
 
 
 
-        def form_player_string(self):
-            #Метод отвечает за формирование строки с информацией о игроках в таблице с игроками
-            pass
-
 
 if __name__ == "__main__":
     #import sys
