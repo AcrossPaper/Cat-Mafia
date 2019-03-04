@@ -1,9 +1,12 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem
 
 from interface import start_window as _start_window
 from interface import work_window as _work_window
 from interface import play_window as _play_window
+
+from PyQt5 import QtGui
+
 
 #Класс Main_Window инициализирует и управляет всеми созданными окнами для работы приложения. Работает со слотами и сигналами
 class Main_Window:
@@ -16,6 +19,7 @@ class Main_Window:
 
         #Настроим сигналы стартового окна
         self.setup_start_window_signals()
+
 
         #Настроим сигналы рабочего окна настроек
         self.setup_work_window_signals()
@@ -236,13 +240,18 @@ class Main_Window:
         #Передадим всех игроков в PlayWindow через мастера
         self.master.set_player_playroom()
 
-        #Очистим виджет от мусора
-        self.play_window.list_players.clear()
         #Выведем на виджет с игроками полученных игроков
-        player_number = 1
+        player_number = 0
         for player in self.master.game_room.get_players():  #game_room берем из него, так как в нем сидят игроки на следующую игру
-            self.play_window.list_players.addItem("{}. {}".format(player_number, player.nick_name))
+            self.play_window.table_players.insertRow(self.play_window.table_players.rowCount())
+
+            self.play_window.table_players.setItem(player_number, 0, QTableWidgetItem(player.nick_name))
+            self.play_window.table_players.setItem(player_number, 1, QTableWidgetItem("Нет роли"))
+            self.play_window.table_players.setItem(player_number, 2, QTableWidgetItem("В игре"))
+
             player_number += 1
+
+
 
         self.play_window.show() #Покажем форму игры
         self.work_window.hide() #И спрячем форму настроек

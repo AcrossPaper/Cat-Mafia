@@ -1,5 +1,7 @@
 from PyQt5 import uic
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QDesktopWidget, QHeaderView, QTableWidgetItem
+
+from PyQt5 import QtGui
 
 
 
@@ -14,8 +16,25 @@ class Play_Window(QWidget):
 
         #Здесь я не стал вручную компоновать виджеты, а сделал через Designer. Так что здесь просто проведу немного космитичеких улучшений
         def customise(self):
-            self.table_vote.setRowCount(10)
-            self.table_vote.setColumnCount(2)
+            #перенесем окошко в центр
+            form_rectangle = self.frameGeometry()
+            window_center = QDesktopWidget().availableGeometry().center()
+            form_rectangle.moveCenter(window_center)
+            self.move(form_rectangle.topLeft())
+
+            #Сделаем окно во весь экран
+            self.showMaximized()
+
+            #Настроим ресайз таблицы голосования
+
+
+            # Настроим ресайз таблицы выбора игроков
+            self.table_vote.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            self.table_vote.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+
+
+
 
         def form_player_string(self):
             #Метод отвечает за формирование строки с информацией о игроках в таблице с игроками
