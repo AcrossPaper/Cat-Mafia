@@ -36,10 +36,13 @@ class PlayRoom:
         self.players[index].drop_condition()
 
     # btn_backplayer
-    def return_player(self, player):
-        #Если ведущий по ошибке удалил игрока его можно вернуть в игру
-        index = self.players.index(player)
-        self.players[index].drop_condition()
+    def return_player(self, nick_name):
+        #Если ведущий по ошибке удалил игрока его можно вернуть в игру (Изменить его состояние на "В игре")
+
+        #Ищем игрока в списке
+        for player in self.players_at_vote:
+            if player.nick_name == nick_name:
+                player.drop_condition()
 
     # btn_addfall
     def add_fall(self, player):

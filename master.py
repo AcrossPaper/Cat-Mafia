@@ -65,6 +65,18 @@ class Master:
         players = self.game_room.get_players()
         self.play_room.set_players(players)
 
+    """Функциональные Методы playroom"""
+    def add_vote(self, nickname):
+        for player in self.play_room.players:
+            if nickname == player.nick_name:
+                self.play_room.players_at_vote.append(player)
+
+    def return_vote(self, nickname):
+        for player in self.play_room.players:
+            if nickname == self.play_room.players_at_vote:
+                self.play_room.players_at_vote.remove(player)
+
+
 
 
 

@@ -273,24 +273,19 @@ class Main_Window:
         selectedPlayer = self.play_window.table_players.selectedIndexes()
         playerNumber = selectedPlayer[0].row()
 
-        #Ищем игрока в памяти добавленных игроков по его никнейму в памяти мастера
-        findNick = selectedPlayer[0].data()
-        foundPlayer = None
+        #Добавляем игркоа в память мастера
+        nick_name = selectedPlayer[0].data()
+        self.master.add_vote(nick_name)
 
-        for player in self.master.play_room.players:
-            if player.nick_name == findNick:
-                foundPlayer = player
-
-        #Теперь добавляем в память игроков на голосование ссылку на игрока что был выставлен
-        self.master.play_room.add_vote(foundPlayer)
 
         #Добавляем игрока на виджет таблицы голосования из памяти мастера
         rowCount = self.play_window.table_vote.rowCount()
         self.play_window.table_vote.insertRow(rowCount) #Вставляем новую строку в таблице
 
         #Формируем строку которую вставим в таблицу
-        stringAtTable = "{}.{}".format(playerNumber + 1, foundPlayer.nick_name)
+        stringAtTable = "{}".format(nick_name)
         self.play_window.table_vote.setItem(rowCount, 0, QTableWidgetItem(stringAtTable))
+
     #btn_endvote
     def end_vote(self): #Кнопка закончить голосование
         #Получим список игроков из таблицы голосования
@@ -298,7 +293,6 @@ class Main_Window:
 
         for i in range(self.play_window.table_vote.rowCount()):
             player_name = self.play_window.table_vote.item(i, 0).text()
-            player_name = player_name.split('.')[1] #Отсчечем номер игрока от строки (Особенности программы)
             voteCount = int(self.play_window.table_vote.item(i, 1).text())
 
             nextPlayer = [player_name, voteCount]
@@ -327,24 +321,16 @@ class Main_Window:
         for nextRow in range(self.play_window.table_vote.rowCount()):
             next_item = self.play_window.table_vote.item(nextRow, 0)
             next_nick = next_item.text()
-            next_nick = next_nick.split(".")[1] #Избавляемся от точки в нике
             if next_nick in vote_down_players:
                 self.play_window.table_players.item(nextRow, 0).setBackground(QtGui.QColor(255, 0, 0)) #Подсветим в таблице списка игроков
 
+    #btn_returnvote
+    def return_vote(self): #Метод возвращяет игрока при желании выставившего его игрока
+        #Посмотрим какой игрок выбран в в таблице голосования
+        chosen_item = self.play_window.table_vote.selectedIndexes()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        player_nick = chosen_item[0].data()
+        self.master.pla
 
 
 
