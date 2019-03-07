@@ -1,5 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem
+from PyQt5.QtGui import QColor
 
 from interface import start_window as _start_window
 from interface import work_window as _work_window
@@ -81,6 +82,7 @@ class Main_Window:
 
         "Кнопка добавить игрока на голосование"
         self.play_window.btn_addvote.clicked.connect(self.player_add_vote)
+        self.play_window.btn_voteend.clicked.connect(self.end_vote)
 
         pass
 
@@ -289,6 +291,53 @@ class Main_Window:
         #Формируем строку которую вставим в таблицу
         stringAtTable = "{}.{}".format(playerNumber + 1, foundPlayer.nick_name)
         self.play_window.table_vote.setItem(rowCount, 0, QTableWidgetItem(stringAtTable))
+    #btn_endvote
+    def end_vote(self): #Кнопка закончить голосование
+        #Получим список игроков из таблицы голосования
+        player_li = []
+
+        for i in range(self.play_window.table_vote.rowCount()):
+            player_name = self.play_window.table_vote.item(i, 0).text()
+            player_name = player_name.split('.')[1] #Отсчечем номер игрока от строки (Особенности программы)
+            voteCount = int(self.play_window.table_vote.item(i, 1).text())
+
+            nextPlayer = [player_name, voteCount]
+            player_li.append(nextPlayer)
+
+        #Сортируем
+        def byVote_key(player):
+            return player[1]
+
+        player_li = sorted(player_li, key = byVote_key, reverse = True)
+
+        #Смотрим сколько игроков проиграло на голосовании (Может быть автокотострофа)
+        vote_down_players = []
+        maxVote = player_li[0][1]
+
+        for player in player_li:
+            player_vote = player[1]
+            if player_vote == maxVote:
+                vote_down_players.append(player[0])
+
+        #Теперь в vote_down_player игроки, которых нужно подсветить для ведущего, сделаем это при помощи изменения цвета клетки
+        #Получим заранее все ники из памяти мастера
+
+        #Осмотрим все ники из таблицы с игроками, и сравним их с vote_down_players. Найдем совпадение - подсветим.
+        table_nicknames = []
+        for nextRow in range(self.play_window.table_vote.rowCount()):
+            next_item = self.play_window.table_vote.item(nextRow, 0)
+            next_nick = next_item.text()
+            next_nick = next_nick.split(".")[1] #Избавляемся от точки в нике
+            if next_nick in vote_down_players:
+                self.play_window.table_players.item(nextRow, 0).setBackground(QtGui.QColor(255, 0, 0)) #Подсветим в таблице списка игроков
+
+
+
+
+
+
+
+
 
 
 

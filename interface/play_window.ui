@@ -210,7 +210,7 @@
        </attribute>
        <column>
         <property name="text">
-         <string>Номер игрока</string>
+         <string>Игрок</string>
         </property>
        </column>
        <column>
@@ -242,7 +242,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="btn_voteend">
        <property name="minimumSize">
         <size>
          <width>0</width>
