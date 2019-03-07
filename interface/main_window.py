@@ -76,17 +76,17 @@ class Main_Window:
 
     def setup_play_window_signals(self):
         """
-        Настраивает работу виджетов playwindow
+        Настраивает сигналы виджетов playwindow
 
         """
-
-        "Кнопка добавить игрока на голосование"
         self.play_window.btn_addvote.clicked.connect(self.player_add_vote)
         self.play_window.btn_voteend.clicked.connect(self.end_vote)
+        self.play_window.btn_returnvote.clicked.connect(self.return_vote)
+        self.play_window.btn_mastervotereturn.clicked.connect(self.master_return_vote)
 
         pass
 
-        """Дальше идет описание слотов(функций при срабатывании сигнала нажатия на кнопку)"""
+    """Дальше идет описание слотов(функций при срабатывании сигнала нажатия на кнопку)"""
 
     def btn_press_add_player_room(self):    #Если нажата кнопка добавить игрока (слева)
         #Получим введеный ник
@@ -330,7 +330,17 @@ class Main_Window:
         chosen_item = self.play_window.table_vote.selectedIndexes()
 
         player_nick = chosen_item[0].data()
-        self.master.pla
+        self.master.return_vote(player_nick)    #Обработали игрока из памяти
+
+        self.play_window.table_vote.removeRow(chosen_item[0].row())    #Удаляем эту строку из виджета
+
+    def master_return_vote(self):   #Если мастер ошибся, он может удалить игрока из таблицы
+        self.return_vote()
+
+    
+
+
+
 
 
 

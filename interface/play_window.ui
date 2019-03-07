@@ -147,6 +147,19 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="btn_backplayer">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Вернуть игрока в игру</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="label_3">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -262,22 +275,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btn_backplayer">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
+      <widget class="QPushButton" name="btn_mastervotereturn">
        <property name="text">
-        <string>Вернуть игрока в игру</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btn_addfall">
-       <property name="text">
-        <string>Снять игроку Фолл</string>
+        <string>Отозвать игрока (мастер ошибся)</string>
        </property>
       </widget>
      </item>
@@ -555,6 +555,13 @@
                  </property>
                  <property name="text">
                   <string>Добавить Фолл</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_addfall">
+                 <property name="text">
+                  <string>Снять игроку Фолл</string>
                  </property>
                 </widget>
                </item>
