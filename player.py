@@ -9,7 +9,7 @@ class Player:
         self.nick_name = nick_name
         self.role = None
 
-        self.condition = "In game"  #Состояние игрока во время игры.
+        self.condition = "В игре"  #Состояние игрока во время игры.
         self.fallcount = 0  #Количество фолов у игрока
 
 
@@ -36,7 +36,7 @@ class Player:
 
     def drop_condition(self):
         #Сбросить роль игрока до роли в игре
-        self.condition = "In game"
+        self.condition = "В игре"
 
     def add_fall(self):
         self.fallcount += 1

@@ -10,6 +10,11 @@ import player
 
 from PyQt5 import QtGui
 
+PLAYER_SHOOT_COLOR = QColor(255, 191, 164)
+PLAYER_VOTE_COLOR = QColor(0, 0, 255)
+PLAYER_LIFT_COLOR = QColor(0, 255, 0)
+PLAYER_BACK_COLOR = QColor(0, 0, 0)
+
 
 #Класс Main_Window инициализирует и управляет всеми созданными окнами для работы приложения. Работает со слотами и сигналами
 class Main_Window:
@@ -83,6 +88,11 @@ class Main_Window:
         self.play_window.btn_voteend.clicked.connect(self.end_vote)
         self.play_window.btn_returnvote.clicked.connect(self.return_vote)
         self.play_window.btn_mastervotereturn.clicked.connect(self.master_return_vote)
+        self.play_window.btn_shoot.clicked.connect(self.player_shoot)
+        self.play_window.btn_voted.clicked.connect(self.player_voted)
+        self.play_window.btn_mafiamiss.clicked.connect(self.mafia_miss)
+        self.play_window.btn_disc.clicked.connect(self.player_lifted)
+        self.play_window.btn_backplayer.clicked.connect(self.back_player)
 
         pass
 
@@ -337,8 +347,59 @@ class Main_Window:
     def master_return_vote(self):   #Если мастер ошибся, он может удалить игрока из таблицы
         self.return_vote()
 
-    
+    #Дальше пойдет блок с вариантом выхода игрока из игры
 
+    def player_shoot(self): #Если игрок отстрелян мафией
+        #Посмотрим какого игрока мастер выбрал для острелся в таблице с игроками
+        chosen_item = self.play_window.table_players.selectedIndexes()
+        player_nick = chosen_item[0].data()
+
+        #Удалим этого игрока из памяти (Застрелим его мастером)
+        self.master.shoot_player(player_nick)
+
+        #Разукрашиваем его ячейку в цвет и меняем его состояние на Застрелян
+        row = chosen_item[0].row()
+        self.play_window.table_players.item(row, 0).setBackground(PLAYER_SHOOT_COLOR)
+        self.play_window.table_players.setItem(row, 2, QTableWidgetItem("Застрелян"))
+
+    def player_voted(self): #Если игрок был заголосован общим голосованием
+        # Посмотрим какого игрока мастер выбрал для острелся в таблице с игроками
+        chosen_item = self.play_window.table_players.selectedIndexes()
+        player_nick = chosen_item[0].data()
+
+        self.master.vote_player(player_nick)
+
+        # Разукрашиваем его ячейку в цвет и меняем его состояние на Застрелян
+        row = chosen_item[0].row()
+        self.play_window.table_players.item(row, 0).setBackground(PLAYER_VOTE_COLOR)
+        self.play_window.table_players.setItem(row, 2, QTableWidgetItem("Заголосован"))
+
+    def mafia_miss(self):   #Если мафия промахнулась
+        pass
+
+    def player_lifted(self):    #Если игрок был поднят за фолы мастером
+        # Посмотрим какого игрока мастер выбрал для острелся в таблице с игроками
+        chosen_item = self.play_window.table_players.selectedIndexes()
+        player_nick = chosen_item[0].data()
+
+        self.master.lift_player(player_nick)
+
+        # Разукрашиваем его ячейку в цвет и меняем его состояние на Застрелян
+        row = chosen_item[0].row()
+        self.play_window.table_players.item(row, 0).setBackground(PLAYER_LIFT_COLOR)
+        self.play_window.table_players.setItem(row, 2, QTableWidgetItem("Поднят"))
+
+    def back_player(self):  #Если игрок по ошибке был удален из игры
+        # Посмотрим какого игрока мастер выбрал для острелся в таблице с игроками
+        chosen_item = self.play_window.table_players.selectedIndexes()
+        player_nick = chosen_item[0].data()
+
+        self.master.back_player(player_nick)
+
+        # Разукрашиваем его ячейку в цвет и меняем его состояние на В игре
+        row = chosen_item[0].row()
+        self.play_window.table_players.item(row, 0).setBackground(PLAYER_BACK_COLOR)
+        self.play_window.table_players.setItem(row, 2, QTableWidgetItem("В игре"))
 
 
 

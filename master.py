@@ -76,6 +76,29 @@ class Master:
             if nickname == self.play_room.players_at_vote:
                 self.play_room.players_at_vote.remove(player)
 
+    def shoot_player(self, nickname):   #Застреливаем игрока (Меняем его статус на "Застрелян")
+        #Ищем игрока
+        for player in self.play_room.players:
+            if player.nick_name == nickname:
+                player.condition = "Застрелян"
+
+    def vote_player(self, nickname):    #Заголосуем игрока (Меняем его статус на "Заголосован")
+        # Ищем игрока
+        for player in self.play_room.players:
+            if player.nick_name == nickname:
+                player.condition = "Заголосован"
+
+    def lift_player(self, nickname):
+        # Ищем игрока
+        for player in self.play_room.players:
+            if player.nick_name == nickname:
+                player.condition = "Поднят"
+
+    def back_player(self, nickname):
+        # Ищем игрока
+        for player in self.play_room.players:
+            if player.nick_name == nickname:
+                player.drop_condition()
 
 
 

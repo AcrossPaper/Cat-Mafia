@@ -133,16 +133,23 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btn_disc">
+      <widget class="QPushButton" name="btn_voted">
        <property name="text">
-        <string>ПОДНЯТ</string>
+        <string>ЗАГОЛОСОВАН</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btn_voted">
+      <widget class="QPushButton" name="btn_mafiamiss">
        <property name="text">
-        <string>ЗАГОЛОСОВАН</string>
+        <string>ПРОМАХ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_disc">
+       <property name="text">
+        <string>ПОДНЯТ (Мастером)</string>
        </property>
       </widget>
      </item>
@@ -155,7 +162,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Вернуть игрока в игру</string>
+        <string>Вернуть игрока в игру (Мастером)</string>
        </property>
       </widget>
      </item>
@@ -320,20 +327,41 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="chbox_rolefixate">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <italic>true</italic>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Зафиксировать распределение ролей</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
             <widget class="QPushButton" name="btn_sherif">
              <property name="text">
-              <string>Шериф</string>
+              <string>1. Шериф</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="btn_don">
              <property name="text">
-              <string>Дон</string>
+              <string>2. Дон</string>
              </property>
             </widget>
            </item>
@@ -344,14 +372,14 @@
            <item>
             <widget class="QPushButton" name="btn_red">
              <property name="text">
-              <string>Красный</string>
+              <string>3. Красный</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="btn_black">
              <property name="text">
-              <string>Мафия</string>
+              <string>4. Мафия</string>
              </property>
             </widget>
            </item>
@@ -415,13 +443,6 @@
            </property>
            <property name="text">
             <string>Игровые звуки</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="chbox_music">
-           <property name="text">
-            <string>CheckBox</string>
            </property>
           </widget>
          </item>
